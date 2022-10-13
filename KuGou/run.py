@@ -83,6 +83,4 @@ def test():
 
 
 if __name__ == '__main__':
-    'https://webfs.ali.kugou.com/202209161548/6251cf6f505c6e21311b787e16bf8750/KGTX/CLTX001/1a3dffd195ebedef8641cbb0d2f74a78.mp3'
-
     run()
