@@ -31,9 +31,10 @@ def get_param_by_js(query, ua):
 # 通过python获取加密参数
 def get_param_by_python(query, ua):
     bv = hashlib.md5(ua.encode()).hexdigest()
-    ts = int(time.time() * 1000)
-    salt = random.randint(0, 10) + ts
-    sign = hashlib.md5(str('fanyideskweb' + query + str(salt) + 'Ygy_4c=r#e#4EX^NUGUc5').encode()).hexdigest()
+    ts = str(int(time.time() * 1000))
+    salt = ts + str(random.randint(0, 10))
+    sign_str = 'fanyideskweb' + query + salt + 'Ygy_4c=r#e#4EX^NUGUc5'
+    sign = hashlib.md5(sign_str.encode()).hexdigest()
     return {
         'bv': bv,
         'lts': ts,
@@ -75,8 +76,8 @@ def run(query):
     }
 
     # js获取加密参数
-    # result = get_param_by_js(query, headers['User-Agent'])
-    result = get_param_by_python(query, headers['User-Agent'])
+    result = get_param_by_js(query, headers['User-Agent'])
+    # result = get_param_by_python(query, headers['User-Agent'])
     # 可选
     # cookies['___rl__test__cookies'] = str(int(time.time() * 1000))
 
