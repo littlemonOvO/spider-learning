@@ -5,9 +5,11 @@
 # @Project: spider-100
 import json
 import pprint
+from binascii import a2b_hex
 
 import execjs
 import requests
+from Crypto.Cipher import AES
 
 from common.utils import get_common_headers
 
@@ -17,7 +19,18 @@ def get_data_by_js(text):
         js = f.read()
     js_compiler = execjs.compile(js)
     result = js_compiler.call('getDecryptedData', text)
-    pprint.pprint(json.loads(result))
+    return result
+
+
+# AES解密python实现
+def get_data_by_python(text):
+    key = 'jo8j9wGw%6HbxfFn'.encode('utf-8')
+    iv = '0123456789ABCDEF'.encode('utf-8')
+    aes = AES.new(key=key, mode=AES.MODE_CBC, iv=iv)
+    # hexstr解码
+    srcs = a2b_hex(text.encode('utf-8'))
+    decrypt_text = aes.decrypt(srcs).strip(''.encode()).decode()
+    return decrypt_text
 
 
 def run():
@@ -29,7 +42,9 @@ def run():
     resp = requests.get(url, headers=headers)
     assert resp.status_code == 200
     # AES加密
-    get_data_by_js(resp.text)
+    # result = get_data_by_js(resp.text)
+    result = get_data_by_python(resp.text)
+    pprint.pprint(json.loads(result))
 
 
 if __name__ == '__main__':
