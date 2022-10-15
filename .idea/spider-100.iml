@@ -7,4 +7,14 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PyNamespacePackagesService">
+    <option name="namespacePackageFolders">
+      <list>
+        <option value="$MODULE_DIR$/biliVideo" />
+        <option value="$MODULE_DIR$/common" />
+        <option value="$MODULE_DIR$/KuGou" />
+        <option value="$MODULE_DIR$/KuWo" />
+      </list>
+    </option>
+  </component>
 </module>
